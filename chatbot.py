@@ -3,7 +3,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Load the dataset
-data = pd.read_csv('data/sample_data_10k.csv')
+data = pd.read_csv('sample_data_10k.csv')
 
 # Combine relevant columns for product description
 data['description'] = data['About Product'].fillna('') + ' ' + \
@@ -35,3 +35,30 @@ def get_product_details(product_name):
     details += f"Price: {product['Selling Price']}\n"
     details += f"Category: {product['Category']}\n"
     return details
+
+def main():
+    print("Welcome to the eCommerce Chatbot!")
+    print("Type 'exit' to end the conversation.")
+
+    while True:
+        user_input = input("\nHow can I help you today? ")
+        if user_input.lower() == 'exit':
+            print("Goodbye!")
+            break
+
+        if 'details about' in user_input.lower():
+            product_name = user_input.split('details about ')[-1]
+            response = get_product_details(product_name)
+        else:
+            response = recommend_products(user_input)
+
+        print(response)
+
+if __name__ == "__main__":
+    main()
+
+#%%
+
+#%%
+
+#%%
