@@ -20,30 +20,29 @@ def recommend_products(user_request):
     top_indices = cosine_similarities.argsort()[-5:][::-1]
     recommended_products = data.iloc[top_indices]
 
-    response = "Here are some products that match your request:\n"
+    response = "Hi! How can I help you today?\n\nI found some products that might interest you:\n"
     for idx, product in recommended_products.iterrows():
-        response += f"{product['Product Name']} - {product['About Product']}\n"
-        response += f"Price: {product['Selling Price']}\n"
-        response += "------------\n"
+        response += f"* {product['Product Name']}\n"
+    response += "\nFeel free to ask about any of these products or search for something else!"
 
     return response
 
 def get_product_details(product_name):
     product = data[data['Product Name'].str.contains(product_name, case=False)].iloc[0]
-    details = f"Product: {product['Product Name']}\n"
+    details = f"**Product Details for {product['Product Name']}**\n"
     details += f"Description: {product['About Product']}\n"
     details += f"Price: {product['Selling Price']}\n"
     details += f"Category: {product['Category']}\n"
+
     return details
 
 def main():
-    print("Welcome to the eCommerce Chatbot!")
-    print("Type 'exit' to end the conversation.")
+    print("Welcome to the Amazon Chatbot!")
 
     while True:
-        user_input = input("\nHow can I help you today? ")
+        user_input = input("\n How can I help you? ")
         if user_input.lower() == 'exit':
-            print("Goodbye!")
+            print("Goodbye! Thanks for shopping with us.")
             break
 
         if 'details about' in user_input.lower():
@@ -56,9 +55,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-#%%
-
-#%%
-
-#%%
